@@ -3,9 +3,9 @@ version: 0.2
 env:
   variables:
     ECR_REGISTRY: "277707106820.dkr.ecr.ca-central-1.amazonaws.com"
-    IMAGE_NAME: "patel-flask-app"
+    IMAGE_NAME: "borda-flask-app"
     IMAGE_TAG: "latest"
-    CONTAINER_NAME: "patel-container"
+    CONTAINER_NAME: "borda-container"
 
 phases:
   install:
@@ -21,13 +21,13 @@ phases:
     commands:
       - echo Build started on `date`
       - docker build -t $IMAGE_NAME .
-      - docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/patel-ecr:$IMAGE_TAG
+      - docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/borda-ecr:$IMAGE_TAG
   post_build:
     commands:
       - echo Pushing the Docker image...
-      - docker push $ECR_REGISTRY/patel-ecr:$IMAGE_TAG
+      - docker push $ECR_REGISTRY/borda-ecr:$IMAGE_TAG
       - echo Generating imagedefinitions.json...
-      - printf "[{\"name\":\"$CONTAINER_NAME\",\"imageUri\":\"$ECR_REGISTRY/patel-ecr:$IMAGE_TAG\"}]" > imagedefinitions.json
+      - printf "[{\"name\":\"$CONTAINER_NAME\",\"imageUri\":\"$ECR_REGISTRY/borda-ecr:$IMAGE_TAG\"}]" > imagedefinitions.json
       - echo Build completed on `date`
 
 artifacts:
